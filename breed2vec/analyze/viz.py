@@ -8,7 +8,7 @@ def plot_cosine_similarity(sim, labels=None):
     labels: optional list of doc labels (breed names, etc.)
     """
     fig, ax = plt.subplots()
-    im = ax.imshow(sim)
+    im = ax.imshow(sim, cmap="Greys")
 
     ax.set_title("Cosine similarity (SentenceTransformer)")
     ax.set_xlabel("Document")

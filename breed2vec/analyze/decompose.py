@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
-from breed2vec.analyze.viz import plot_cosine_similarity
+from breed2vec.analyze.viz import plot_cosine_similarity, plot_embedding_scatter
 import numpy as np
 
 
@@ -49,7 +49,8 @@ def find_representations(docs):
 
 
 def analyze_standards(doc_dict):
-    docs = [d.values() for d in doc_dict]
+    labels = list(doc_dict.keys())
+    docs = list(doc_dict.values())
 
     print("n_docs =", len(docs))
 
@@ -61,6 +62,7 @@ def analyze_standards(doc_dict):
     print("\nCosine similarity between docs (SentenceTransformer):")
     print(sim)
 
-    plot_cosine_similarity(sim, doc_dict.keys())
+    plot_cosine_similarity(sim, labels)
+    plot_embedding_scatter(sim, labels)
 
     return terms, tfidf_matrix, E, sim

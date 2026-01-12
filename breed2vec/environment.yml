@@ -1,0 +1,12 @@
+name: breed2vec
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - scikit-learn
+  - matplotlib
+  - pip
+  - pip:
+      - sentence-transformers
+      - pymupdf

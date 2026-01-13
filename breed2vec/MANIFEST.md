@@ -35,6 +35,7 @@ Purpose: orchestration of scrape stages and DB population.
 - populate_groups.py: build BreedGroups table from FCI site.
 - populate_breeds.py: build BreedInfo + varieties and provisional entries.
 - ingest_pdfs.py: orchestrate ingest (download PDFs, extract text, store).
+- analyze_pdfs.py: run analysis over ingested document text.
 - __init__.py: package marker.
 
 ## ingest/
@@ -43,4 +44,9 @@ Purpose: download PDFs, extract text, and store in Documents.
 - extract_utils.py: PDF text extraction + formatting-aware iterator.
 - pdf_text.py: process local PDFs (extract + upsert Documents).
 - define_sections.py: placeholder for section extraction rules.
+- __init__.py: package marker.
+## analyze/
+Purpose: analyze ingested text.
+- decompose.py: TF-IDF + embedding decomposition helpers.
+- viz.py: visualization helpers (plots).
 - __init__.py: package marker.

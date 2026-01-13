@@ -1,0 +1,5 @@
+breed2vec/data
+breed2vec/__pycache__/
+breed2vec/data/plots/
+breed2vec/data/tmp/
+breed2vec/__pycache__

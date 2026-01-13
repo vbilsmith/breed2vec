@@ -9,12 +9,7 @@ Run examples:
 """
 # breed2vec/__main__.py
 import argparse
-
-from breed2vec.pipeline.populate_groups import build_groups
-from breed2vec.pipeline.populate_breeds import build_breeds
-from breed2vec.pipeline.ingest_pdfs import ingest_breed_pdfs
-from breed2vec.pipeline.analyze_pdfs import analyze_pdfs
-from breed2vec.config import PACKAGE_ROOT
+import os
 
 def read_breeds_file(path: str) -> list[str]:
     with open(path, "r", encoding="utf-8-sig") as f:
@@ -45,8 +40,41 @@ def main(argv=None) -> int:
         help="Optional file containing one breed name or FCI number per line. "
              "If omitted, all breeds in the database are processed."
     )
+    parser.add_argument(
+        "--outdir",
+        type=str,
+        metavar="PATH",
+        help="Output directory for analysis plots. "
+             "Default: breed2vec/data/plots/<run_id>.",
+    )
+    parser.add_argument(
+        "--db-path",
+        type=str,
+        metavar="PATH",
+        help="Path to a cached sqlite DB (overrides default and --data-dir).",
+    )
+    parser.add_argument(
+        "--data-dir",
+        type=str,
+        metavar="PATH",
+        help="Path to a cached data directory (contains fci_cache.db, pdfs/, layout/).",
+    )
 
     args = parser.parse_args(argv)
+
+    if args.db_path and args.data_dir:
+        print("Note: --db-path overrides --data-dir; using --db-path.")
+
+    if args.db_path:
+        os.environ["BREED2VEC_DB_PATH"] = args.db_path
+    if args.data_dir:
+        os.environ["BREED2VEC_DATA_DIR"] = args.data_dir
+
+    from breed2vec.config import PACKAGE_ROOT
+    from breed2vec.pipeline.populate_groups import build_groups
+    from breed2vec.pipeline.populate_breeds import build_breeds
+    from breed2vec.pipeline.ingest_pdfs import ingest_breed_pdfs
+    from breed2vec.pipeline.analyze_pdfs import analyze_pdfs
 
     if args.stage in ("groups", "all"):
         build_groups(reset=args.reset_db)
@@ -67,7 +95,7 @@ def main(argv=None) -> int:
         ingest_breed_pdfs(breed_filter)
 
     if args.stage in ("analyze", "all"):
-        analyze_pdfs(breed_filter)
+        analyze_pdfs(breed_filter, out_dir=args.outdir)
 
     return 0
 

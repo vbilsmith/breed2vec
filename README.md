@@ -1,18 +1,16 @@
 # breed2vec
 
-**breed2vec** is a lightweight, reproducible pipeline for collecting FCI dog breed standards, extracting text from PDFs, and analyzing semantic similarity between breeds using modern text representations.
-
+**breed2vec** is a lightweight, reproducible pipeline for collecting Fédération Cynologique Internationale (FCI) dog breed standards, extracting text from PDFs, and analyzing semantic similarity between breeds using modern text representations.
 The goal of this project is **not** to infer ancestry or biological truth, but to evaluate how well document embeddings recover *known historical, geographic, and morphological relationships* from breed-standard text alone.
-
-The workflow is designed to be transparent and inspectable:
+The workflow is designed to be transparent and inspectable.
 
 **scrape → store → ingest PDFs → analyze**
 
 ## Why This Matters (AI Safety Context)
-This project is a small, controlled testbed for evaluating how well text embeddings recover meaningful structure from domain‑specific documents. That style of construct‑validity check is directly relevant to safety‑adjacent evaluation: if embeddings fail on known structure in a narrow domain, they are less trustworthy for high‑stakes interpretability or retrieval settings.
+This project is a small, controlled testbed for evaluating how well text embeddings recover meaningful structure from domain‑specific documents.
+That style of construct‑validity check is directly relevant to safety‑adjacent evaluation: if embeddings fail on known structure in a narrow domain, they are less trustworthy for high‑stakes interpretability or retrieval settings.
 
 ## What This Demo Shows (30-second overview)
-
 Using a small, interpretable set of breeds, the demo illustrates that:
 
 - Breeds with shared geographic and functional history (e.g., Labrador Retriever and Newfoundland) exhibit high semantic similarity.
@@ -33,7 +31,6 @@ This serves as a construct-validity sanity check for document-level embeddings i
 ---
 
 ## Environment Setup
-
 Create and activate the conda environment:
 
 ```bash
@@ -43,7 +40,6 @@ conda activate breed2vec
 (Alternatively, dependencies can be installed via pip; see environment.yml for details.)
 
 ## Minimal Working Example
-
 This is the shortest path from scratch to analysis output.
 
 1) Populate FCI group and breed metadata:
@@ -113,7 +109,6 @@ python -m breed2vec analyze --data-dir /path/to/data
 - PCA visualizations are used for interpretability, not statistical inference.
 
 ## Limitations and Scope
-
 This demo uses a small number of breeds for clarity and interpretability.
 Semantic similarity reflects shared descriptive language, not proof of genetic ancestry.
 The project is intended as an exploratory and diagnostic tool rather than a benchmark.
